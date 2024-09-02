@@ -1,5 +1,6 @@
 package com.globant.utils.baseTest;
 
+import com.globant.screens.HomeScreen;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import org.apache.logging.log4j.LogManager;
@@ -55,5 +56,13 @@ public class BaseTest {
             this.logger.error("BaseTest - Setup Environment: Error creating driver");
             throw new RuntimeException("BaseTest - Setup Environment: Error with URL");
         }
+    }
+
+    protected HomeScreen loadHomeScreen() throws NullPointerException {
+        if (this.driver == null) {
+            this.logger.error("The driver is null");
+            throw new NullPointerException("BaseTest - LoadHomeScreen: Invalid driver");
+        }
+        return new HomeScreen(this.driver);
     }
 }
