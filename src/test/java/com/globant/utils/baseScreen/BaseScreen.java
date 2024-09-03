@@ -40,6 +40,10 @@ public class BaseScreen {
         this.wait.until(ExpectedConditions.visibilityOf(element));
     }
 
+    protected void waitElementsAreDisplayed(List<WebElement> elementList) {
+        this.wait.until(ExpectedConditions.visibilityOfAllElements(elementList));
+    }
+
     protected void waitElementIsClickable(WebElement element) {
         this.wait.until(ExpectedConditions.elementToBeClickable(element));
     }

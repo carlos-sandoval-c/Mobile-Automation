@@ -1,5 +1,6 @@
 package com.globant.tests;
 
+import com.globant.screens.FormsScreen;
 import com.globant.screens.HomeScreen;
 import com.globant.screens.LoginAndSignUpScreen;
 import com.globant.screens.WebViewScreen;
@@ -43,5 +44,26 @@ public class NavigationOnMenuBarTest extends BaseTest {
         loginScreen.tapOnSignUpFormOption();
         Assert.assertTrue(loginScreen.isSignUpFormDisplayed());
         Assert.assertTrue(loginScreen.isSignUpBtnDisplayed());
+    }
+
+    @Test
+    public void navigateToFormsScreen() {
+        FormsScreen formsScreen = this.homeScreen.tapOnOptionByA11yId("Forms");
+        Assert.assertNotNull(formsScreen);
+        Assert.assertTrue(formsScreen.isTitleDisplayed());
+        String testString = "TESTING INPUT FIELD";
+        formsScreen.setTextInInputField(testString);
+        Assert.assertEquals(formsScreen.getTextFromInputViewer(), testString);
+        Assert.assertEquals(formsScreen.getSwitchStatusText(), "Click to turn the switch ON");
+        formsScreen.tapOnSwitch();
+        Assert.assertEquals(formsScreen.getSwitchStatusText(), "Click to turn the switch OFF");
+        formsScreen.tapOnDropdown();
+        Assert.assertTrue(formsScreen.isModalDropdownDisplayed());
+        String selectedOptionTxt = formsScreen.tapOnDropdownSection(1);
+        Assert.assertEquals(formsScreen.getDropdownTxt(), selectedOptionTxt);
+        Assert.assertFalse(formsScreen.isInactiveBtnCheckable());
+        formsScreen.tapOnActiveBtn();
+        Assert.assertTrue(formsScreen.isActiveModalDisplayed());
+        formsScreen.tapOnCloseModalActiveBtn();
     }
 }
