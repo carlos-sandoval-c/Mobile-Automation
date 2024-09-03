@@ -68,9 +68,10 @@ public class BaseScreen {
      * A mapping of the screens accessible through the navbar is made, this map contains the classes, and they are
      * consulted through their accessibility id, this method uses reflect utilities to obtain the constructor and
      * generate the instance corresponding to the selected screen.
-     *
+     * <p>
      * Generics are used to avoid the need to repeat the navbar validation code, since it is independent of the state
      * in the test flow.
+     *
      * @see ScreenMap
      */
     public <T extends BaseScreen> T tapOnOptionByA11yId(String accessibilityId) {
@@ -81,7 +82,8 @@ public class BaseScreen {
 
         try {
             return (T) ScreenMap.getClassByA11yId(accessibilityId).getDeclaredConstructor(AndroidDriver.class).newInstance(this.driver);
-        } catch (InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+        } catch (InvocationTargetException | InstantiationException | IllegalAccessException |
+                 NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
     }
