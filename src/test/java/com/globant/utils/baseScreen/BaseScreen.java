@@ -5,7 +5,11 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.PointerInput;
+import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -13,12 +17,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.lang.reflect.InvocationTargetException;
 import java.time.Duration;
+import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 public class BaseScreen {
     protected AndroidDriver driver;
     protected WebDriverWait wait;
+    protected final static PointerInput FINGER = new PointerInput(PointerInput.Kind.TOUCH, "finger");
     protected FluentWait<AndroidDriver> fluentWait;
 
     protected static final String NAVBAR_BNT_LIST = "//android.view.ViewGroup/android.view.View/android.view.View";
@@ -34,6 +40,23 @@ public class BaseScreen {
                 .ignoring(NoSuchElementException.class);
 
         PageFactory.initElements(new AppiumFieldDecorator(this.driver), this);
+    }
+
+    protected void swipeByCoords(Point start, Point end) {
+        Sequence swipe = new Sequence(BaseScreen.FINGER, 1)
+                .addAction(BaseScreen.FINGER.createPointerMove(Duration.ofMillis(0), PointerInput.Origin.viewport(), start.getX(), start.getY()))
+                .addAction(BaseScreen.FINGER.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
+                .addAction(BaseScreen.FINGER.createPointerMove(Duration.ofSeconds(1), PointerInput.Origin.viewport(), end.getX(), end.getY()))
+                .addAction(BaseScreen.FINGER.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+
+        this.driver.perform(Collections.singletonList(swipe));
+    }
+
+    protected void verticalDownSwipe() {
+        Dimension windowSize = this.driver.manage().window().getSize();
+        Point start = new Point(windowSize.getWidth() / 2, windowSize.getHeight() / 2);
+        Point end = new Point(windowSize.getWidth() / 2, 0);
+        this.swipeByCoords(start, end);
     }
 
     protected void waitElementIsDisplayed(WebElement element) {

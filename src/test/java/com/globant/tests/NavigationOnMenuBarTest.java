@@ -1,10 +1,8 @@
 package com.globant.tests;
 
-import com.globant.screens.FormsScreen;
-import com.globant.screens.HomeScreen;
-import com.globant.screens.LoginAndSignUpScreen;
-import com.globant.screens.WebViewScreen;
+import com.globant.screens.*;
 import com.globant.utils.baseTest.BaseTest;
+import org.openqa.selenium.Point;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -65,5 +63,16 @@ public class NavigationOnMenuBarTest extends BaseTest {
         formsScreen.tapOnActiveBtn();
         Assert.assertTrue(formsScreen.isActiveModalDisplayed());
         formsScreen.tapOnCloseModalActiveBtn();
+    }
+
+    @Test
+    public void navigateToSwipeScreen() {
+        SwipeScreen swipeScreen = this.homeScreen.tapOnOptionByA11yId("Swipe");
+        Assert.assertNotNull(swipeScreen);
+        Assert.assertTrue(swipeScreen.isTitleDisplayed());
+        Assert.assertTrue(swipeScreen.isCardsContainerDisplayed());
+        swipeScreen.swipeToEnd();
+        Assert.assertTrue(swipeScreen.isEndLogoDisplayed());
+        Assert.assertTrue(swipeScreen.isEndLabelDisplayed());
     }
 }
