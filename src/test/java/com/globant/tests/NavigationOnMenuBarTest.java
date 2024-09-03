@@ -2,7 +2,6 @@ package com.globant.tests;
 
 import com.globant.screens.*;
 import com.globant.utils.baseTest.BaseTest;
-import org.openqa.selenium.Point;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
