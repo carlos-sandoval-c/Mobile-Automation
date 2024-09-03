@@ -12,7 +12,7 @@ public class SuccessfulSignUpTest extends BaseTest {
     private LoginAndSignUpScreen loginAndSignUpScreen;
 
     @BeforeTest
-    public void navigateToLoginScreen() {
+    public LoginAndSignUpScreen navigateToLoginScreen() {
         HomeScreen homeScreen = super.loadHomeScreen();
         Assert.assertNotNull(homeScreen);
         Assert.assertTrue(homeScreen.isNavbarDisplayed());
@@ -20,10 +20,12 @@ public class SuccessfulSignUpTest extends BaseTest {
         this.loginAndSignUpScreen = homeScreen.tapOnOptionByA11yId("Login");
         Assert.assertNotNull(this.loginAndSignUpScreen);
         Assert.assertTrue(this.loginAndSignUpScreen.isFormsBtnDisplayed());
+
+        return this.loginAndSignUpScreen;
     }
 
     @Test(dataProvider = "user-signup", dataProviderClass = UserDataProvider.class)
-    public void signUp(String email, String password) {
+    public void verifySuccessfulSignUp(String email, String password) {
         this.loginAndSignUpScreen.tapOnSignUpFormOption();
         Assert.assertTrue(this.loginAndSignUpScreen.isSignUpFormDisplayed());
 
@@ -31,8 +33,8 @@ public class SuccessfulSignUpTest extends BaseTest {
         this.loginAndSignUpScreen.setPassword(password);
         this.loginAndSignUpScreen.setConfirmPassword(password);
         this.loginAndSignUpScreen.tapOnSignUpBtn();
-        Assert.assertTrue(this.loginAndSignUpScreen.isConfirmSignUpDisplayed());
-        this.loginAndSignUpScreen.tapOnConfirmSignUpBtn();
+        Assert.assertTrue(this.loginAndSignUpScreen.isConfirmActionBtnDisplayed());
+        this.loginAndSignUpScreen.tapOnConfirmActionBtn();
         Assert.assertTrue(this.loginAndSignUpScreen.isSignUpFormDisplayed());
     }
 }

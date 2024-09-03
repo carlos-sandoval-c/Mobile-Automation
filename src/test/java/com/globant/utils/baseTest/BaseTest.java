@@ -44,7 +44,7 @@ public class BaseTest {
     }
 
     @BeforeTest(alwaysRun = true)
-    protected void setupEnvironment() {
+    public void setupEnvironment() {
         this.loadProperties();
         UiAutomator2Options capabilities = new UiAutomator2Options();
         this.setupCapabilities(capabilities);

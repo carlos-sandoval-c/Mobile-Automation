@@ -10,4 +10,9 @@
             <class name="com.globant.tests.SuccessfulSignUpTest"/>
         </classes>
     </test>
+    <test name="Successful Login">
+        <classes>
+            <class name="com.globant.tests.SuccessfulSignUpTest"/>
+        </classes>
+    </test>
 </suite>
