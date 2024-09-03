@@ -35,5 +35,9 @@ build/
 ### VS Code ###
 .vscode/
 
+## Java #
+*.log
+*.class
+
 ### Mac OS ###
 .DS_Store
