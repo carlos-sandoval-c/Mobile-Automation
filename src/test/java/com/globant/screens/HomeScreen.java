@@ -12,6 +12,7 @@ public class HomeScreen extends BaseScreen {
     private static final String TITLE_TXT = "UiSelector().textContains(\"WEBDRIVER\")";
     private static final String SUB_TITLE_TXT = "UiSelector().textContains(\"Demo app for the appium-boilerplate\")";
     private static final String WEB_VIEW_BTN = "Webview";
+    private static final String LOGIN_BTN = "Login";
 
     @AndroidFindBy(xpath = HomeScreen.LOGO_IMG_LIST)
     private List<WebElement> logoImgList;
@@ -19,8 +20,6 @@ public class HomeScreen extends BaseScreen {
     private WebElement titleTxt;
     @AndroidFindBy(uiAutomator = HomeScreen.SUB_TITLE_TXT)
     private WebElement subTitleTxt;
-    @AndroidFindBy(accessibility = HomeScreen.WEB_VIEW_BTN)
-    private WebElement webViewBtn;
 
     public HomeScreen(AndroidDriver driver) {
         super(driver);
@@ -36,13 +35,5 @@ public class HomeScreen extends BaseScreen {
 
     public boolean isSubTitleDisplayed() {
         return this.subTitleTxt.isDisplayed();
-    }
-
-    public WebViewScreen tapOnWebViewOption() {
-        super.waitElementIsDisplayed(this.webViewBtn);
-        super.waitElementIsClickable(this.webViewBtn);
-
-        this.webViewBtn.click();
-        return new WebViewScreen(super.driver);
     }
 }
