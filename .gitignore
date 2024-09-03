@@ -35,9 +35,12 @@ build/
 ### VS Code ###
 .vscode/
 
-## Java #
+## Java ##
 *.log
 *.class
+
+## Generated Data ##
+src/test/resources/*Data.csv
 
 ### Mac OS ###
 .DS_Store

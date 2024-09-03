@@ -15,6 +15,7 @@ public class LoginAndSignUpScreen extends BaseScreen {
     private static final String NOTE_LOGIN = "UiSelector().textContains(\"When the device has Touch/FaceID (iOS) or FingerPrint enabled a biometrics button will be shown to use and test the login.\")";
     private static final String LOGIN_BTN = "button-LOGIN";
     private static final String SIGN_UP_BTN = "button-SIGN UP";
+    private static final String CONFIRM_SIGN_UP_BTN = "//android.widget.Button[@resource-id=\"android:id/button1\"]";
 
     @AndroidFindBy(uiAutomator = LoginAndSignUpScreen.TITLE_TXT)
     private WebElement titleTxt;
@@ -34,6 +35,8 @@ public class LoginAndSignUpScreen extends BaseScreen {
     private WebElement loginBtn;
     @AndroidFindBy(accessibility = LoginAndSignUpScreen.SIGN_UP_BTN)
     private WebElement signUpBtn;
+    @AndroidFindBy(xpath = LoginAndSignUpScreen.CONFIRM_SIGN_UP_BTN)
+    private WebElement confirmSignUpBtn;
 
     public LoginAndSignUpScreen(AndroidDriver driver) {
         super(driver);
@@ -67,8 +70,39 @@ public class LoginAndSignUpScreen extends BaseScreen {
         return this.signUpBtn.isDisplayed();
     }
 
+    public boolean isConfirmSignUpDisplayed() {
+        return this.confirmSignUpBtn.isDisplayed();
+    }
+
     public void tapOnSignUpFormOption() {
         super.waitElementIsClickable(this.signUpFormBtn);
         this.signUpFormBtn.click();
+    }
+
+    public void tapOnSignUpBtn() {
+        super.waitElementIsClickable(this.signUpBtn);
+        this.signUpBtn.click();
+
+        super.fluentWaitElementIsDisplayedByXpath(LoginAndSignUpScreen.CONFIRM_SIGN_UP_BTN);
+    }
+
+    public void tapOnConfirmSignUpBtn() {
+        super.waitElementIsClickable(this.confirmSignUpBtn);
+        this.confirmSignUpBtn.click();
+    }
+
+    public void setEmail(String email) {
+        super.waitElementIsDisplayed(this.emailInput);
+        this.emailInput.sendKeys(email);
+    }
+
+    public void setPassword(String password) {
+        super.waitElementIsDisplayed(this.passwordInput);
+        this.passwordInput.sendKeys(password);
+    }
+
+    public void setConfirmPassword(String password) {
+        super.waitElementIsDisplayed(this.confirmPasswordInput);
+        this.confirmPasswordInput.sendKeys(password);
     }
 }

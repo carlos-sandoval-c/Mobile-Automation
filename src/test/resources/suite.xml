@@ -5,4 +5,9 @@
             <class name="com.globant.tests.NavigationOnMenuBarTest"/>
         </classes>
     </test>
+    <test name="Successful Sign Up">
+        <classes>
+            <class name="com.globant.tests.SuccessfulSignUpTest"/>
+        </classes>
+    </test>
 </suite>
