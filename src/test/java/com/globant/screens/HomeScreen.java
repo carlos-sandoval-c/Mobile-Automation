@@ -11,8 +11,6 @@ public class HomeScreen extends BaseScreen {
     private static final String LOGO_IMG_LIST = "//android.widget.ImageView";
     private static final String TITLE_TXT = "UiSelector().textContains(\"WEBDRIVER\")";
     private static final String SUB_TITLE_TXT = "UiSelector().textContains(\"Demo app for the appium-boilerplate\")";
-    private static final String WEB_VIEW_BTN = "Webview";
-    private static final String LOGIN_BTN = "Login";
 
     @AndroidFindBy(xpath = HomeScreen.LOGO_IMG_LIST)
     private List<WebElement> logoImgList;
