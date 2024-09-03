@@ -75,4 +75,14 @@ public class NavigationOnMenuBarTest extends BaseTest {
         Assert.assertTrue(swipeScreen.isEndLogoDisplayed());
         Assert.assertTrue(swipeScreen.isEndLabelDisplayed());
     }
+
+    @Test
+    public void navigateToDragScreen() {
+        DragAndDropScreen dragAndDropScreen = this.homeScreen.tapOnOptionByA11yId("Drag");
+        Assert.assertNotNull(dragAndDropScreen);
+        Assert.assertTrue(dragAndDropScreen.isTitleDisplayed());
+        Assert.assertTrue(dragAndDropScreen.isDropTargetDisplayed());
+        Assert.assertTrue(dragAndDropScreen.isRenewBtnDisplayed());
+        Assert.assertTrue(dragAndDropScreen.dragOptionsAreDisplayed());
+    }
 }
