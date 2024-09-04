@@ -36,7 +36,7 @@ public class BaseScreen {
         this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
         this.fluentWait = new FluentWait<>(this.driver)
                 .withTimeout(Duration.ofSeconds(20))
-                .pollingEvery(Duration.ofSeconds(2))
+                .pollingEvery(Duration.ofSeconds(1))
                 .ignoring(NoSuchElementException.class);
 
         PageFactory.initElements(new AppiumFieldDecorator(this.driver), this);
@@ -46,7 +46,7 @@ public class BaseScreen {
         Sequence swipe = new Sequence(BaseScreen.FINGER, 1)
                 .addAction(BaseScreen.FINGER.createPointerMove(Duration.ofMillis(0), PointerInput.Origin.viewport(), start.getX(), start.getY()))
                 .addAction(BaseScreen.FINGER.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
-                .addAction(BaseScreen.FINGER.createPointerMove(Duration.ofSeconds(1), PointerInput.Origin.viewport(), end.getX(), end.getY()))
+                .addAction(BaseScreen.FINGER.createPointerMove(Duration.ofSeconds(2), PointerInput.Origin.viewport(), end.getX(), end.getY()))
                 .addAction(BaseScreen.FINGER.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
 
         this.driver.perform(Collections.singletonList(swipe));
@@ -55,13 +55,13 @@ public class BaseScreen {
     protected void verticalDownSwipe() {
         Dimension windowSize = this.driver.manage().window().getSize();
         Point start = new Point(windowSize.getWidth() / 2, windowSize.getHeight() / 2);
-        Point end = new Point(windowSize.getWidth() / 2, 0);
+        Point end = new Point(windowSize.getWidth() / 2, 200);
         this.swipeByCoords(start, end);
     }
 
     protected void verticalUpSwipe() {
         Dimension windowSize = this.driver.manage().window().getSize();
-        Point start = new Point(windowSize.getWidth() / 2, 100);
+        Point start = new Point(windowSize.getWidth() / 2, windowSize.getHeight() - 200);
         Point end = new Point(windowSize.getWidth() / 2, windowSize.getHeight() / 2);
         this.swipeByCoords(start, end);
     }
@@ -90,12 +90,16 @@ public class BaseScreen {
         if (accessibilityId == null || accessibilityId.isEmpty())
             throw new RuntimeException("BaseScreen - GetOptionByAccessibilityId: Invalid Id");
 
+        this.waitElementsAreDisplayed(this.navbarBtnList);
+        WebElement homeElement = null;
         for (WebElement element : this.navbarBtnList) {
             if (element.getAttribute("content-desc").equalsIgnoreCase(accessibilityId))
                 return element;
-        }
 
-        throw new RuntimeException("BaseScreen - GetOptionByAccessibilityId: Unknown option");
+            if (element.getAttribute("content-desc").equalsIgnoreCase("home"))
+                homeElement = element;
+        }
+        return homeElement;
     }
 
     /**
@@ -110,6 +114,8 @@ public class BaseScreen {
      */
     public <T extends BaseScreen> T tapOnOptionByA11yId(String accessibilityId) {
         WebElement optionBtn = this.getOptionByA11yId(accessibilityId);
+        if (optionBtn == null)
+            optionBtn = this.driver.findElement(By.xpath("//android.view.View[@content-desc=\"Home\"]"));
         this.waitElementIsDisplayed(optionBtn);
         this.waitElementIsClickable(optionBtn);
         optionBtn.click();

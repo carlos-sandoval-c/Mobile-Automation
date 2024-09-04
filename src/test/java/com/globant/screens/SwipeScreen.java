@@ -77,12 +77,12 @@ public class SwipeScreen extends BaseScreen {
 
     public void swipeLeftOnCards() {
         Point start = new Point(1100, this.getYPosContainerCards());
-        Point end = new Point(200, this.getYPosContainerCards());
+        Point end = new Point(300, this.getYPosContainerCards());
         super.swipeByCoords(start, end);
     }
 
     public void swipeRightOnCards() {
-        Point start = new Point(200, this.getYPosContainerCards());
+        Point start = new Point(300, this.getYPosContainerCards());
         Point end = new Point(1100, this.getYPosContainerCards());
         super.swipeByCoords(start, end);
     }
@@ -128,13 +128,15 @@ public class SwipeScreen extends BaseScreen {
     }
 
     public void swipeToStart() {
-        while (!this.isTitleDisplayed())
+        while (!this.isTitleDisplayed()) {
             super.verticalUpSwipe();
+        }
     }
 
     public void swipeLastCard() {
-        while (!this.isLastCardDisplayed())
+        while (!this.isLastCardDisplayed()) {
             this.swipeLeftOnCards();
+        }
     }
 
     public String getEndLabelTxt() {

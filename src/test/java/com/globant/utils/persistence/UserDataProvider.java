@@ -89,7 +89,7 @@ public class UserDataProvider {
         if (data.isEmpty() || data.get(0).length < 2)
             throw new RuntimeException("DataProvider - Login: Invalid data");
 
-        String[] userData =  data.get(0);
+        String[] userData = data.get(0);
         return new Object[][]{{userData[0], userData[1]}};
     }
 

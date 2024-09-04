@@ -3,13 +3,13 @@ package com.globant.tests;
 import com.globant.screens.*;
 import com.globant.utils.baseTest.BaseTest;
 import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class NavigationOnMenuBarTest extends BaseTest {
     private HomeScreen homeScreen;
 
-    @BeforeTest(alwaysRun = true)
+    @BeforeMethod()
     public void navigateToHomeScreen() {
         this.homeScreen = super.loadHomeScreen();
         Assert.assertNotNull(this.homeScreen);

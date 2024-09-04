@@ -5,14 +5,9 @@
             <class name="com.globant.tests.NavigationOnMenuBarTest"/>
         </classes>
     </test>
-    <test name="Successful Sign Up">
+    <test name="Successful Sign Up and login">
         <classes>
-            <class name="com.globant.tests.SuccessfulSignUpTest"/>
-        </classes>
-    </test>
-    <test name="Successful Login">
-        <classes>
-            <class name="com.globant.tests.SuccessfulSignUpTest"/>
+            <class name="com.globant.tests.SuccessfulSignUpAndLoginTest"/>
         </classes>
     </test>
     <test name="Swipe cards on the Swipe section">

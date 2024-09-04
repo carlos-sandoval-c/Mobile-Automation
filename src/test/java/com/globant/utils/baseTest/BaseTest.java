@@ -5,7 +5,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeClass;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -41,9 +41,10 @@ public class BaseTest {
         capabilities.setDeviceName(BaseTest.getCapability("deviceName"));
         capabilities.setAppPackage(BaseTest.getCapability("appPackage"));
         capabilities.setAppActivity(BaseTest.getCapability("appActivity"));
+        capabilities.setCapability("newCommandTimeout", BaseTest.getCapability("newCommandTimeout"));
     }
 
-    @BeforeTest(alwaysRun = true)
+    @BeforeClass(alwaysRun = true)
     public void setupEnvironment() {
         this.loadProperties();
         UiAutomator2Options capabilities = new UiAutomator2Options();
@@ -51,18 +52,21 @@ public class BaseTest {
 
         try {
             this.driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), capabilities);
-            this.logger.debug("BaseTest - Setup Environment: Driver Initialized");
+            this.logger.info("BaseTest - Setup Environment: Driver Initialized");
         } catch (MalformedURLException e) {
             this.logger.error("BaseTest - Setup Environment: Error creating driver");
             throw new RuntimeException("BaseTest - Setup Environment: Error with URL");
         }
     }
 
-    protected HomeScreen loadHomeScreen() throws NullPointerException {
+    protected HomeScreen loadHomeScreen() {
         if (this.driver == null) {
-            this.logger.error("The driver is null");
-            throw new NullPointerException("BaseTest - LoadHomeScreen: Invalid driver");
+            this.setupEnvironment();
+            this.logger.info("RECREATE DRIVER");
         }
-        return new HomeScreen(this.driver);
+
+        HomeScreen homeScreen = new HomeScreen(this.driver);
+        homeScreen.tapOnOptionByA11yId("home");
+        return homeScreen;
     }
 }
