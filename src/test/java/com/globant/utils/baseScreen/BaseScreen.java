@@ -59,6 +59,13 @@ public class BaseScreen {
         this.swipeByCoords(start, end);
     }
 
+    protected void verticalUpSwipe() {
+        Dimension windowSize = this.driver.manage().window().getSize();
+        Point start = new Point(windowSize.getWidth() / 2, 100);
+        Point end = new Point(windowSize.getWidth() / 2, windowSize.getHeight() / 2);
+        this.swipeByCoords(start, end);
+    }
+
     protected void waitElementIsDisplayed(WebElement element) {
         this.wait.until(ExpectedConditions.visibilityOf(element));
     }

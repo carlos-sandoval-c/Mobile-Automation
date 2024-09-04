@@ -15,4 +15,9 @@
             <class name="com.globant.tests.SuccessfulSignUpTest"/>
         </classes>
     </test>
+    <test name="Swipe cards on the Swipe section">
+        <classes>
+            <class name="com.globant.tests.SwipeCardsTest"/>
+        </classes>
+    </test>
 </suite>
